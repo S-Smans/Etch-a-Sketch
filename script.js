@@ -5,13 +5,7 @@ function createGrid() {
     }
     container.style.gridTemplateColumns = `repeat(${slider.value}, 1fr)`;
 
-    // gets all the divs that create the grid
-    let divs = document.querySelectorAll('div.container > div');
-
-    // each div has an event listener that changes color when the mouse hovers over it
-    divs.forEach(div => {
-        div.addEventListener('mouseenter', (e) => e.target.style.backgroundColor = 'purple');
-    });
+    defaultColor();
 }
 
 // deletes the grid
@@ -19,6 +13,26 @@ function deleteGrid() {
     while (container.hasChildNodes()) {
         container.removeChild(container.lastChild);
     }
+}
+
+// default element color on mouse hover
+function defaultColor() {
+    // gets all the divs that create the grid
+    let divs = document.querySelectorAll('div.container > div');
+    // each div has an event listener that changes color when the mouse hovers over it
+    divs.forEach(div => {
+        div.addEventListener('mouseenter', (e) => e.target.style.backgroundColor = "purple");
+    });
+}
+
+// randomizes element color on mouse hover
+function randomizeColor() {
+    // gets all the divs that create the grid
+    let divs = document.querySelectorAll('div.container > div');
+    // each div has an event listener that changes color when the mouse hovers over it
+    divs.forEach(div => {
+        div.addEventListener('mouseenter', (e) =>  e.target.style.backgroundColor =  "#" + Math.floor(Math.random()*16777215).toString(16));
+    });
 }
 
 // gets div by class name from html
@@ -36,7 +50,8 @@ main.appendChild(container);
 // gets div by class name from html
 let slider = document.querySelector('.slider');
 let value = document.querySelector('.value');
-let submit = document.querySelector('.submit');
+let butSubmit = document.querySelector('.submit');
+let butRandomize = document.querySelector('.randomize');
 
 // shows the value of the slider
 value.innerText = slider.value;
@@ -46,10 +61,15 @@ slider.addEventListener('input', () => {
     value.innerText = slider.value;
 })
 
-// changes the grid layout by the slider number
-submit.addEventListener('click', (e) => {
+// on button "submit" press changes the grid layout by the slider number
+butSubmit.addEventListener('click', () => {
     deleteGrid();
     createGrid();
 })
+
+// when "Randomize" button clicked randomize element colors
+butRandomize.addEventListener('click', () => {
+    randomizeColor();
+});
 
 createGrid();
