@@ -5,7 +5,7 @@ function createGrid() {
     }
     container.style.gridTemplateColumns = `repeat(${slider.value}, 1fr)`;
 
-    defaultColor();
+    regularColor();
 }
 
 // deletes the grid
@@ -16,12 +16,12 @@ function deleteGrid() {
 }
 
 // default element color on mouse hover
-function defaultColor() {
+function regularColor() {
     // gets all the divs that create the grid
     let divs = document.querySelectorAll('div.container > div');
     // each div has an event listener that changes color when the mouse hovers over it
     divs.forEach(div => {
-        div.addEventListener('mouseenter', (e) => e.target.style.backgroundColor = "purple");
+        div.addEventListener('mouseenter', (e) => e.target.style.backgroundColor = inpColor.value);
     });
 }
 
@@ -52,6 +52,7 @@ let slider = document.querySelector('.slider');
 let value = document.querySelector('.value');
 let butSubmit = document.querySelector('.submit');
 let butRandomize = document.querySelector('.randomize');
+let inpColor = document.querySelector('.color');
 
 // shows the value of the slider
 value.innerText = slider.value;
@@ -70,6 +71,12 @@ butSubmit.addEventListener('click', () => {
 // when "Randomize" button clicked randomize element colors
 butRandomize.addEventListener('click', () => {
     randomizeColor();
+});
+
+// Color changes to user choice
+inpColor.addEventListener('click', (e) => {
+    console.log(e);
+    regularColor();
 });
 
 createGrid();
